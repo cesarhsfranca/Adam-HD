@@ -13,7 +13,7 @@ The optimizer dynamically transitions between "aggressive" and "cautious" states
 1.  **Relative Gradient Norm:** The L2 norm of the gradient at each step is compared against its own exponential moving average. This signal measures the "steepness" of the loss landscape relative to its recent history and is used to compute an `aggressiveness factor`.
 2.  **Directional Consistency:** The cosine similarity between consecutive gradients is used to measure the smoothness and predictability of the optimization path.
 
-A key component of the control system is a **Generalized Softsign function**, defined as $s(z, T) = z / (T + |z|)$. This function, controlled by a sensitivity gain (`k_agressividade`) and a flattening factor (`T`), maps the relative gradient norm to the aggressiveness factor without the premature saturation that affects standard sign functions.
+A key component of the control system is a **Generalized Softsign function**, defined as $s(z, T) = z / (T + |z|)$. This function, controlled by the flattening factor (`T`), maps the relative gradient norm to the aggressiveness factor without the premature saturation that affects standard sign functions.
 
 This aggressiveness factor then directly modulates the learning rate ($\alpha$) and works in coordination with the directional consistency signal to adjust momentum ($\beta$) and adaptive memory ($\gamma$). This allows the optimizer to perform nuanced behaviors, such as intelligently reducing inertia when approaching a flat minimum to avoid overshooting.
 
@@ -32,5 +32,5 @@ This script is a self-contained implementation and analysis of the Adam-HD optim
 ## How to Run
 
 1.  Ensure you have the required libraries installed: `numpy`, `matplotlib`, `torch`, `torchvision`, and `scikit-learn`.
-2.  Key parameters for the experiments, such as `K_AGRESSIVIDADE_GLOBAL`, `FLATTENING_FACTOR_T_GLOBAL`, and the number of epochs (`NUMERO_DE_EPOCAS`), can be adjusted in the global variables section at the top of the script.
+2.  Key parameters for the experiments, `FLATTENING_FACTOR_T_GLOBAL`, and the number of epochs (`NUMERO_DE_EPOCAS`), can be adjusted in the global variables section at the top of the script.
 3.  Run the Python script. It will first execute the 2D visualization and then proceed to the MLP training, followed by all the analysis plots.
